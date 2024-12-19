@@ -57,17 +57,23 @@ ui <- fluidPage(
       div(id = "encrypt_section",
           div(class = "box",
               h3("Step 1: Upload File"),
+                   p("Pilih file yang ingin dienkripsi (PDF, Word, Excel, PNG, JPG, TIFF)."),
               fileInput("enc_file", "Choose a file:", accept = c(".pdf", ".docx", ".png", ".jpg", ".tiff")),
               textOutput("file_error"),
               div(class = "file-info", textOutput("enc_file_info")),
               hidden(div(id = "enc_step2",
                          h3("Step 2: Enter Key"),
+                         tags$ol(
+                              tags$li("Masukkan kunci enkripsi sepanjang 16 karakter."),
+                              tags$li("Klik tombol 'Enkripsi' untuk memulai proses."),
+                            ),
                          textInput("enc_password", "Enter 16-character password:", value = "KUNCI-KELOMPOK-1"),
                          textOutput("key_error"),
                          actionButton("encrypt_action_btn", "Encrypt File", class = "btn-primary")
               )),
               hidden(div(id = "enc_step3",
                          h3("Step 3: Download Encrypted File"),
+                         p("Unduh file hasil enkripsi setelah selesai."),
                          downloadButton("enc_download", "Download Encrypted File", class = "btn-primary"),
                          div(class = "file-info", textOutput("enc_runtime"))
               ))
@@ -78,17 +84,23 @@ ui <- fluidPage(
       div(id = "decrypt_section",
           div(class = "box",
               h3("Step 1: Upload Encrypted File"),
+              p("Pilih file terenkripsi (format '.enc')."),
               fileInput("dec_file", "Choose a file (.enc):", accept = ".enc"),
               textOutput("dec_file_error"),
               div(class = "file-info", textOutput("dec_file_info")),
               hidden(div(id = "dec_step2",
                          h3("Step 2: Enter Key"),
+                         tags$ol(
+                            tags$li("Masukkan kunci dekripsi yang sesuai."),
+                            tags$li("Klik tombol 'Dekripsi' untuk memulai proses."),
+                            ),
                          textInput("dec_password", "Enter 16-character password:", value = "KUNCI-KELOMPOK-1"),
                          textOutput("dec_key_error"),
                          actionButton("decrypt_action_btn", "Decrypt File", class = "btn-primary")
               )),
               hidden(div(id = "dec_step3",
                          h3("Step 3: Download Decrypted File"),
+                         p("Unduh file hasil dekripsi setelah selesai."),
                          downloadButton("dec_download", "Download Decrypted File", class = "btn-primary"),
                          div(class = "file-info", textOutput("dec_runtime"))
               ))
